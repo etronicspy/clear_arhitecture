@@ -9,6 +9,11 @@ class LocationEntity extends Equatable {
     this.url,
   );
 
+  toJson() => {
+        'name': name,
+        'url': url,
+      };
+
   @override
   List<Object> get props => [
         name,

@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:intl/intl.dart';
+
 import '../../domain/entities/person_entity.dart';
 
 class PersonModel extends PersonEntity {
@@ -24,12 +28,18 @@ class PersonModel extends PersonEntity {
       species: json['species'],
       type: json['type'],
       gender: json['gender'],
-      origin: json['origin']['name'],
-      location: json['location']['name'],
+      origin: LocationEntity(
+        json['origin']['name'],
+        json['origin']['url'],
+      ),
+      location: LocationEntity(
+        json['location']['name'],
+        json['location']['url'],
+      ),
       image: json['image'],
-      episode: json['episode'],
+      episode: json['episode'].cast<String>(),
       url: json['url'],
-      created: json['created'],
+      created: DateTime.parse(json['created']),
     );
   }
 
@@ -41,12 +51,12 @@ class PersonModel extends PersonEntity {
       'species': species,
       'type': type,
       'gender': gender,
-      'origin': origin,
-      'location': location,
+      'origin': json.encode(origin.toJson()),
+      'location': json.encode(location.toJson()),
       'image': image,
-      'episode': episode,
+      'episode': episode.toString(),
       'url': url,
-      'created': created,
+      'created': DateFormat('yyyy-MM-ddTHH:mm:ss.SSSZ').format(created),
     };
   }
 }
