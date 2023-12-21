@@ -5,6 +5,7 @@ import '../../../common/app_colors.dart';
 import '../../domain/entities/person_entity.dart';
 import '../bloc/person_list_cubit/person_list_cubit.dart';
 import '../bloc/person_list_cubit/person_list_state.dart';
+import 'person_card_widget.dart';
 
 class PersonList extends StatelessWidget {
   const PersonList({super.key});
@@ -20,11 +21,18 @@ class PersonList extends StatelessWidget {
       }
       return ListView.separated(
         itemBuilder: (context, index) {
-          return Text('${persons[index]}');
+          return Padding(
+            padding: const EdgeInsets.only(
+              left: 12,
+              right: 12,
+              top: 12,
+            ),
+            child: PersonCard(person: persons[index]),
+          );
         },
         separatorBuilder: (context, index) {
           return const Divider(
-            color: AppColors.colorWhite,
+            color: AppColors.colorBlack,
           );
         },
         itemCount: persons.length,
